@@ -1,7 +1,7 @@
 {
   "zosversion": "2.2",
   "name": "moc-areopagus-gov",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "contracts": {
     "Governor": "BlockableGovernor",
     "Stopper": "Stopper",

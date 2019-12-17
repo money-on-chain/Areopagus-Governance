@@ -25,7 +25,7 @@ contract Governed is Initializable {
     the governance system
    */
   modifier onlyAuthorizedChanger() {
-    require(governor.isAuthorizedChanger(msg.sender), NOT_AUTHORIZED_CHANGER);
+    checkIfAuthorizedChanger();
     _;
   }
 
@@ -35,8 +35,8 @@ contract Governed is Initializable {
     It is necessary because of the upgradeability of the contracts
     @param _governor Governor address
    */
-  function initialize(IGovernor _governor) public initializer {
-    governor = _governor;
+  function initialize(address _governor) public initializer {
+    governor = IGovernor(_governor);
   }
 
   /**
@@ -45,6 +45,13 @@ contract Governed is Initializable {
    */
   function changeIGovernor(IGovernor newIGovernor) public onlyAuthorizedChanger {
     governor = newIGovernor;
+  }
+
+  /**
+    @notice Checks if the msg sender is an authorized changer, reverts otherwise
+   */
+  function checkIfAuthorizedChanger() internal view {
+    require(governor.isAuthorizedChanger(msg.sender), NOT_AUTHORIZED_CHANGER);
   }
 
   // Leave a gap betweeen inherited contracts variables in order to be

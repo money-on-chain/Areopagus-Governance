@@ -1,4 +1,6 @@
-# Money on Chain - Governance
+# Areopagus
+
+> Money on Chain Governance Smart Contract System
 
 # Introduction
 
@@ -58,13 +60,11 @@ Then you should install the dependencies with `npm install`
 
 Depending on the type of deploy you want to do and where do you want to deploy you should use one of the following scripts:
 
--`npm run deploy-reset-dev`: Deploys from scratch in a local node
+-`npm run deploy-reset-[ENV]`: Deploys from scratch in the the given environment (*)
 
--`npm run deploy-reset-testnet`: Deploys from scratch in rsk testnet
+-`npm run migrate-[ENV]`: Deploy from previous point in the given environment (*)
 
--`npm run migrate-dev`: Deploy from previous point in a local node
-
--`npm run migrate-testnet`: Deploy from a previous checkpoint in rsk testnet
+ _(*) Note:_ [ENV] should match one of the `truffle.js` configured environments, `dev` for local.
 
 Any of them will display at the end all the address relevant to the deploy. You should write them down to later use it in the deploy of your own system.
 

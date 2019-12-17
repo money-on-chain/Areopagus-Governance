@@ -9,7 +9,7 @@ contract MockStoppable is Stoppable {
 
   address public protectedParam;
 
-  function initialize(address _stopper, IGovernor _governor, bool _startStoppable, address _protectedParam) public initializer {
+  function initialize(address _stopper, address _governor, bool _startStoppable, address _protectedParam) public initializer {
     super.initialize(_stopper, _governor, _startStoppable);
     protectedParam = _protectedParam;
   }

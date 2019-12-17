@@ -23,6 +23,7 @@ const ProxiableMockUpgraded = Contracts.getFromLocal('MockUpgraded');
 const ProxiableMockUpgradeable = Contracts.getFromLocal('MockUpgradeable');
 
 contract('Upgradeability', function([owner]) {
+  // eslint-disable-next-line mocha/no-top-level-hooks
   beforeEach(async function() {
     this.project = await TestHelper();
     this.project.txParams.gas = 4e6;
@@ -114,6 +115,7 @@ contract('Upgradeability', function([owner]) {
       });
     });
   });
+  // eslint-disable-next-line mocha/max-top-level-suites
   describe('Proxy with Governance - GIVEN a ProxiableMockUpgradeable contract is up', function() {
     let proxyMockUpgradeable;
     beforeEach(async function() {

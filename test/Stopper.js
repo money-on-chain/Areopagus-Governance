@@ -73,6 +73,7 @@ contract('Stopper', function([owner, anAddress, anotherAddress]) {
       });
     });
   });
+  // eslint-disable-next-line mocha/max-top-level-suites
   describe('GIVEN there is an ecosystem with a stopper and an unpaused contract', function() {
     describe('WHEN an authorized member tries to stop a contract', function() {
       it('THEN the contract is paused', async function() {
@@ -198,9 +199,7 @@ contract('Stopper', function([owner, anAddress, anotherAddress]) {
 
         await expect(await mockStoppable.paused()).to.be.true;
       });
-    });
 
-    describe('WHEN an authorized member transfers the stopper authorization', function() {
       it('THEN the old stopper is NOT able to pause the contract', async function() {
         const { mockStoppable, governor, stopper } = await deployStopTestContracts();
 

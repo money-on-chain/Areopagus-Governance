@@ -64,7 +64,7 @@ contract Stoppable is Governed {
     @param _stopper The address that is authorized to stop this contract
     @param _governor The address that will define when a change contract is authorized to do this unstoppable/stoppable again
    */
-  function initialize(address _stopper, IGovernor _governor) public initializer {
+  function initialize(address _stopper, address _governor) public initializer {
     initialize(_stopper, _governor, true);
   }
 
@@ -76,7 +76,7 @@ contract Stoppable is Governed {
     @param _governor The address that will define when a change contract is authorized to do this unstoppable/stoppable again
     @param _stoppable Define if the contract starts being unstoppable or not
    */
-  function initialize(address _stopper, IGovernor _governor, bool _stoppable) public initializer {
+  function initialize(address _stopper, address _governor, bool _stoppable) public initializer {
     stoppable = _stoppable;
     stopper = _stopper;
     Governed.initialize(_governor);

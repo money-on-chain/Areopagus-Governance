@@ -24,7 +24,7 @@ contract('BlockableGovernor', function([owner, anAddress, anotherAddress]) {
     const initialValue = anAddress;
     const changeValue = anotherAddress;
 
-    beforeEach(async () => {
+    beforeEach(async function() {
       governor = await BlockableGovernor.new();
       governor.initialize(owner, 0);
       mockGoverned = await MockGoverned.new(initialValue);
@@ -71,6 +71,7 @@ contract('BlockableGovernor', function([owner, anAddress, anotherAddress]) {
     });
   });
 
+  // eslint-disable-next-line mocha/max-top-level-suites
   describe('GIVEN there is an ecosystem with a blockable governor with a future unblock date', function() {
     let governor;
     let mockGoverned;
@@ -81,7 +82,7 @@ contract('BlockableGovernor', function([owner, anAddress, anotherAddress]) {
     const changeValue = anotherAddress;
     const TIME_DELTA = new BN(100);
 
-    beforeEach(async () => {
+    beforeEach(async function() {
       governor = await BlockableGovernor.new();
       unblockDate = (await time.latest()).add(TIME_DELTA);
       governor.initialize(owner, unblockDate);
@@ -124,7 +125,7 @@ contract('BlockableGovernor', function([owner, anAddress, anotherAddress]) {
       });
     });
 
-    describe('WHEN trying to block it again with a shorter unblock date', async function() {
+    describe('WHEN trying to block it again with a shorter unblock date', function() {
       it('THEN the tx fails', async function() {
         const newUnblockDate = unblockDate.sub(TIME_DELTA);
         const blocker = await Blocker.new(governor.address, newUnblockDate);
@@ -132,7 +133,7 @@ contract('BlockableGovernor', function([owner, anAddress, anotherAddress]) {
       });
     });
 
-    describe('WHEN trying to block it again with a longer unblock date', async function() {
+    describe('WHEN trying to block it again with a longer unblock date', function() {
       it('THEN the tx fails', async function() {
         const newUnblockDate = unblockDate.add(TIME_DELTA);
         const blocker = await Blocker.new(governor.address, newUnblockDate);
@@ -140,7 +141,7 @@ contract('BlockableGovernor', function([owner, anAddress, anotherAddress]) {
       });
     });
 
-    describe('AND the unblock date was reached', async function() {
+    describe('AND the unblock date was reached', function() {
       beforeEach(async function() {
         await time.increaseTo(unblockDate);
       });
@@ -148,7 +149,7 @@ contract('BlockableGovernor', function([owner, anAddress, anotherAddress]) {
         await expect(await governor.isBlocked()).is.false;
       });
 
-      describe('WHEN trying to block it again until an already passed date', async function() {
+      describe('WHEN trying to block it again until an already passed date', function() {
         it('THEN the tx fails', async function() {
           await time.increase(TIME_DELTA);
           const newUnblockDate = unblockDate.add(TIME_DELTA);

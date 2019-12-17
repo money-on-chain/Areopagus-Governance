@@ -21,7 +21,7 @@ contract UpgradeDelegator is Governed {
     @param _governor Governor address of this system
     @param _proxyAdmin ProxyAdmin that we will forward the call to
    */
-  function initialize(IGovernor _governor, ProxyAdmin _proxyAdmin) public initializer {
+  function initialize(address _governor, ProxyAdmin _proxyAdmin) public initializer {
     Governed.initialize(_governor);
     proxyAdmin = _proxyAdmin;
   }
