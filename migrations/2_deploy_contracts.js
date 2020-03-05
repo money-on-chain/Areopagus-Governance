@@ -42,16 +42,38 @@ async function deploy(options, owner, config) {
 
   console.log('Deploying upgradeDelegator and admin');
   const admin = await ProxyAdmin.new();
+  let upgradeDelegator;
 
-  const upgradeDelegator = await UpgradeDelegator.new();
-  await upgradeDelegator.initialize(governor.address, admin.address);
+  //check if the script if BlockableUpgradeDelegator should be used
+  if (config.unblockUpgradesAt) {
+    // Register initial version of my contracts in the zos project
+    await add({
+      contractsData: [{ name: 'BlockableUpgradeDelegator', alias: 'UpgradeDelegator' }]
+    });
+    console.log('Pushing BlockableUpgradeDelegator implementations');
+    // Push implementation contracts to the network
+    await push(options);
+
+    console.log('Deploying BlockableUpgradeDelegator');
+    upgradeDelegator = await create({
+      contractAlias: 'UpgradeDelegator',
+      initMethod: 'initialize',
+      initArgs: [owner, governor.address, admin.address, config.unblockUpgradesAt],
+      ...options
+    });
+  } else {
+    upgradeDelegator = await UpgradeDelegator.new();
+    await upgradeDelegator.initialize(governor.address, admin.address);
+  }
 
   console.log('Transfering ownership');
   await admin.transferOwnership(upgradeDelegator.address);
   console.log('Setting admins');
   await setAdmin({ contractAlias: 'Governor', newAdmin: admin.address, ...options });
   await setAdmin({ contractAlias: 'Stopper', newAdmin: admin.address, ...options });
-
+  if (config.unblockUpgradesAt) {
+    await setAdmin({ contractAlias: 'UpgradeDelegator', newAdmin: admin.address, ...options });
+  }
   console.log(`-----ADDRESSES IN ${options.network}------------`);
   console.log(`Deployed governor in ${governor.address}`);
   console.log(`Deployed stopper in ${stopper.address}`);
