@@ -5,6 +5,6 @@
   "contracts": {
     "Governor": "BlockableGovernor",
     "Stopper": "Stopper",
-    "UpgradeDelegator": "UpgradeDelegator"
+    "UpgradeDelegator": "BlockableUpgradeDelegator"
   }
 }
