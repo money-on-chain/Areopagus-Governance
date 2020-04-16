@@ -28,7 +28,7 @@ const NOT_AUTHORIZED_TO_BLOCK_ERROR = 'not_authorized_to_block';
 const BLOCKED_ERROR = 'blocked';
 const THRESHOLD_TOO_LOW = 'threshold_too_low';
 
-contract.only('BlockedUpgradeability', function([owner, anotherAddress, anAddress]) {
+contract('BlockedUpgradeability', function([owner, anotherAddress, anAddress]) {
   // eslint-disable-next-line mocha/no-top-level-hooks
   beforeEach(async function() {
     this.project = await TestHelper();

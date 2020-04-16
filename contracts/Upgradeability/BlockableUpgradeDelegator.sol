@@ -1,7 +1,6 @@
 pragma solidity 0.5.8;
 
 import "zos-lib/contracts/upgradeability/AdminUpgradeabilityProxy.sol";
-import "openzeppelin-eth/contracts/ownership/Ownable.sol";
 import "zos-lib/contracts/upgradeability/ProxyAdmin.sol";
 import "../Blockability/Blockable.sol";
 import "./UpgradeDelegator.sol";
@@ -13,7 +12,7 @@ import "./UpgradeDelegator.sol";
   needed to be able to upgrade governance through the same system. This contract
   can be blocked until a given threshold.
  */
-contract BlockableUpgradeDelegator is UpgradeDelegator, Blockable, Ownable {
+contract BlockableUpgradeDelegator is UpgradeDelegator, Blockable {
     /**
     @notice Initialize the contract with the basic settings
     @dev This initialize replaces the constructor but it is not called automatically.
@@ -42,7 +41,6 @@ contract BlockableUpgradeDelegator is UpgradeDelegator, Blockable, Ownable {
   */
   function changeProxyAdmin(AdminUpgradeabilityProxy proxy, address newAdmin)
       public
-      onlyAuthorizedChanger
       notBlocked
   {
     UpgradeDelegator.changeProxyAdmin(proxy, newAdmin);
@@ -55,7 +53,6 @@ contract BlockableUpgradeDelegator is UpgradeDelegator, Blockable, Ownable {
   */
   function upgrade(AdminUpgradeabilityProxy proxy, address implementation)
       public
-      onlyAuthorizedChanger
       notBlocked
   {
     UpgradeDelegator.upgrade(proxy, implementation);
@@ -74,7 +71,7 @@ contract BlockableUpgradeDelegator is UpgradeDelegator, Blockable, Ownable {
     AdminUpgradeabilityProxy proxy,
     address implementation,
     bytes memory data
-  ) public payable onlyAuthorizedChanger notBlocked {
+  ) public payable notBlocked {
     UpgradeDelegator.upgradeAndCall(proxy, implementation, data);
   }
 
