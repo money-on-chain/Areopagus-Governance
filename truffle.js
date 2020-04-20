@@ -33,7 +33,14 @@ module.exports = {
       port: 8555,
       gas: 0xfffffffffff,
       gasPrice: 0x01
-    }
+    },
+    rskTestnet: {
+      host: 'http://45.79.72.117:4444',
+      network_id: '31', // eslint-disable-line camelcase
+      provider: new HDWalletProvider(mnemonic, 'http://45.79.72.117:4444'),
+      gas: 2500000,
+      gasPrice: 183000
+    },
   },
   mocha: {
     useColors: true,
