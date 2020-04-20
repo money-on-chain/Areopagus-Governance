@@ -5,8 +5,8 @@ const chaiAsPromised = require('chai-as-promised');
 
 chai.use(chaiAsPromised);
 chai.should();
-const { assertBig, toContractBN } = require('./mocHelper');
 const { expectRevert, time, BN } = require('openzeppelin-test-helpers');
+const { assertBig, toContractBN } = require('./mocHelper');
 
 ZWeb3.initialize(web3.currentProvider);
 
@@ -28,7 +28,7 @@ const NOT_AUTHORIZED_TO_BLOCK_ERROR = 'not_authorized_to_block';
 const BLOCKED_ERROR = 'blocked';
 const THRESHOLD_TOO_LOW = 'threshold_too_low';
 
-contract('BlockedUpgradeability', function([owner, anotherAddress, anAddress]) {
+contract('BlockedUpgradeability', function([owner, anotherAddress]) {
   // eslint-disable-next-line mocha/no-top-level-hooks
   beforeEach(async function() {
     this.project = await TestHelper();
@@ -118,7 +118,7 @@ contract('BlockedUpgradeability', function([owner, anotherAddress, anAddress]) {
   });
 
   // eslint-disable-next-line mocha/max-top-level-suites
-  describe('Proxy with Governance - GIVEN a ProxiableMockUpgradeable contract is up', function() {
+  describe('GIVEN a ProxiableMockUpgradeable contract is up', function() {
     let proxyMockUpgradeable;
     beforeEach(async function() {
       proxyMockUpgradeable = await this.project.createProxy(ProxiableMockUpgradeable, {
@@ -131,6 +131,7 @@ contract('BlockedUpgradeability', function([owner, anotherAddress, anAddress]) {
       let admin;
       let delegator;
       let upgradedImplementation;
+      let unblockDate;
       const TIME_DELTA = new BN(100);
 
       before(async function() {
@@ -432,7 +433,7 @@ contract('BlockedUpgradeability', function([owner, anotherAddress, anAddress]) {
     });
   });
 
-  describe('Proxy with Upgradeable Governance - GIVEN a ProxiableMockUpgradeable contract is up', function() {
+  describe('GIVEN a ProxyMockUpgradeable contract is up', function() {
     let proxyMockUpgradeable;
     beforeEach(async function() {
       proxyMockUpgradeable = await this.project.createProxy(ProxiableMockUpgradeable, {
@@ -443,14 +444,10 @@ contract('BlockedUpgradeability', function([owner, anotherAddress, anAddress]) {
     describe('AND the admin is set to an blocked BlockableUpgradeDelegator with a future unblock date', function() {
       let proxyGovernor;
       let admin;
-      let upgradedImplementation;
       let delegator;
       let unblockDate;
       const TIME_DELTA = new BN(100);
 
-      before(async function() {
-        upgradedImplementation = await MockUpgradedImplementation.new();
-      });
       beforeEach(async function() {
         proxyGovernor = await this.project.createProxy(ProxiableGovernor, {
           initMethod: 'initialize',
