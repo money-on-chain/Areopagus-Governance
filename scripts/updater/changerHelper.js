@@ -91,6 +91,25 @@ const deployProxyContract = async ({ network, contractAlias, newAdmin }, constru
   console.log('Finished deployinh Proxy');
 };
 
+const deployContract = async (newContract, network, constructorArguments) => {
+  const web3 = getWeb3(network);
+  const [owner] = await web3.eth.getAccounts();
+  const gas = truffleConfig.networks[network].gas || '0xfffffffffff';
+  const gasPrice = truffleConfig.networks[network].gasPrice || '0x01';
+  const NewContractConstructor = await new web3.eth.Contract(newContract.abi);
+  console.log('Deploying');
+  console.log('constructorArguments', constructorArguments);
+  return NewContractConstructor.deploy({
+    data: newContract.bytecode,
+    arguments: constructorArguments
+  })
+    .send({ from: owner, gas, gasPrice })
+    .on('transactionHash', hash => console.log('TxHash:', hash))
+    .on('confirmation', confirmationNumber => console.log('Tx confirmation:', confirmationNumber))
+    .on('receipt', receipt => console.log('Tx receipt:', receipt))
+    .on('error', err => console.error(`ERROR DEPLOYING: ${err}`));
+};
+
 // Theory behind
 // https://ethereum.stackexchange.com/questions/11030/how-can-i-deploy-a-contract-with-reference-to-a-library-contract-without-using-a
 // Important: libraryAddress must be without the initial a 0x
@@ -107,5 +126,6 @@ module.exports = {
   getConfig,
   decodeLog,
   linkLibrary,
-  deployProxyContract
+  deployProxyContract,
+  deployContract
 };
