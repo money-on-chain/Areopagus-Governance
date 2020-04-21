@@ -1,8 +1,6 @@
 # Dependency directory
 node_modules/
 
-# truffle build directory
-build/
 
 # Logs
 logs
@@ -28,7 +26,13 @@ coverageEnv
 
 # mochaawesome-reports
 mochawesome-report
+
+# orig git
+*.orig
+
+#zos
+zos.dev-*.json
 .zos.session
 
-
-zos.dev*
+#compiled contracts
+build/contracts
