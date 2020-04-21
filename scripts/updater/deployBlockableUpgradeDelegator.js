@@ -13,15 +13,15 @@ const { add, push, create, setAdmin } = scripts;
 const input = {
   network: 'development',
   governorAddress: '0xd3A030CC2197E807a89E6fDcd1e7ea0B6C6B5Fd6',
-  unblockUpgradesTimeDelta: 500000
+  unblockUpgradesTimeDelta: 1000 * 60 * 60 * 24 * 2
 };
 
 const execute = async () => {
   const web3 = getWeb3(input.network);
   const [owner] = await web3.eth.getAccounts();
-  const NewContractConstructor = await new web3.eth.Contract(ProxyAdmin.abi);
+  const ProxyAdminConstructor = await new web3.eth.Contract(ProxyAdmin.abi);
   console.log('Deploying Proxy Admin');
-  NewContractConstructor.deploy({
+  ProxyAdminConstructor.deploy({
     data: ProxyAdmin.bytecode,
     arguments: []
   })

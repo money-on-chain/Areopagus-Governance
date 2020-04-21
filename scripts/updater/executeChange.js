@@ -2,8 +2,8 @@ const { getWeb3, getConfig } = require('./changerHelper');
 const GovernorAbi = require('../../build/contracts/Governor.json');
 
 const input = {
-  network: 'rskTestnet',
-  changerAddress: '0xF617D3484a8e4F4953E0F2ffa1141E916057E06C'
+  network: 'development',
+  changerAddress: '0xbd73638aFC7dABD3E20900a778E78cFa593F9b3d'
 };
 
 const execute = async () => {
