@@ -11,9 +11,9 @@ const { deployContract, getConfig } = require('./changerHelper');
  * }
  */
 const input = {
-  network: 'development', 
-  proxyAddress: '0x94C3B3cACd8303bc9796E6C0dd366a6bb2f07D72',
-  newProxyAdminAddress: '0xe6F0ff2857b1aa10e5988e95f2504aDc63BD6Af9'
+  network: 'rskTestnet',
+  proxyAddress: '0xc292f56E567A908674E1D3B9E549b62f904Df1Cf',
+  newProxyAdminAddress: '0x67Ed326904252f837c5142F21Df96377566DAB3F'
 };
 
 const execute = async () => {
