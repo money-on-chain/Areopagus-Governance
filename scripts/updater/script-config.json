@@ -1,0 +1,20 @@
+{
+  "development": {
+    "governor": "0x27Baf7ac39F8426b29d03544bd0f71859f5857ba",
+    "stopper": "0x4e746c90e8E10eeDeC211e5eAd6dAc5D9f58C997",
+    "upgradeDelegator": "0xFef6697F9265acd10d98A17d3a8a92310F76F150",
+    "admin": "0x21627E4113353Aa342E5f33e34081f4E92c43f79"
+  },
+  "rskTestnet": {
+    "governor": "0xd3A030CC2197E807a89E6fDcd1e7ea0B6C6B5Fd6",
+    "stopper": "0xc14E581fBEad681175B83FED1789428C8f98B4Ab",
+    "upgradeDelegator": "0x5DFa02E1DC2cAFdA34DF39F2EFBA89d583767682",
+    "admin": "0xa66897Ce6ebc0f0e095D8B184a593B1A09B96116"
+  },
+  "uatTestnet": {
+    "governor": "0xd3A030CC2197E807a89E6fDcd1e7ea0B6C6B5Fd6",
+    "stopper": "0xc14E581fBEad681175B83FED1789428C8f98B4Ab",
+    "upgradeDelegator": "0x5DFa02E1DC2cAFdA34DF39F2EFBA89d583767682",
+    "admin": "0xa66897Ce6ebc0f0e095D8B184a593B1A09B96116"
+  }
+}

@@ -56,7 +56,7 @@ Then you should install the dependencies with `npm install`
 
 ## Deploy
 
-(Truffle suit)[https://github.com/trufflesuite/truffle] is recommended to compile and deploy the contracts. There are a set of scripts to easy this process for the different known environments.
+(Truffle suit)[https://github.com/trufflesuite/truffle] is recommended to compile and deploy the contracts. There are a set of scripts to easy this process for the different known environments. There are a set of scripts to easy this process for the different known environments. Each environment (and network) might defer in its configuration settings, you can adjust this values in the the `migrations/config/config.json` file.
 
 Depending on the type of deploy you want to do and where do you want to deploy you should use one of the following scripts:
 
@@ -66,7 +66,14 @@ Depending on the type of deploy you want to do and where do you want to deploy y
 
  _(*) Note:_ [ENV] should match one of the `truffle.js` configured environments, `dev` for local.
 
+At the end of the deployment the addresses of the most relevant contracts will be displayed. If you are interested in another contracts you should look inside some files depending if the contracts is upgradeable or not.
+
 Any of them will display at the end all the address relevant to the deploy. You should write them down to later use it in the deploy of your own system.
+
+## Settings: config.json file
+
+- _unblockAt_: Timestamp of the first threshold that should be passed before the system is unblocked.
+- _unblockUpgradesAt_: Timestamp of the first threshold that should be passed before the system governance updates are unblocked.
 
 ## Run an EVM compatible blockchain node locally
 
@@ -86,3 +93,4 @@ npm run ganache-cli
 
 - With Docker:
   See this repository: https://github.com/rsksmart/artifacts/tree/master/Dockerfiles/RSK-Node
+

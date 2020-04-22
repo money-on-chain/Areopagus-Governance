@@ -1,13 +1,16 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb-base", "plugin:prettier/recommended", "plugin:mocha/recommended"],
+  "extends": [
+    "airbnb-base",
+    "plugin:prettier/recommended",
+    "plugin:mocha/recommended"
+  ],
   "env": {
-    "browser": true,
     "mocha": true,
     "node": true
   },
   "rules": {
-    "func-names": "off",
+    "func-names": "error",
     "new-cap": "off",
     "arrow-parens": "off",
     "consistent-return": "off",
@@ -15,14 +18,13 @@
     "generator-star-spacing": "off",
     "import/no-unresolved": "error",
     "import/no-extraneous-dependencies": "off",
-    "import/no-dynamic-require": "off",
+    "import/no-dynamic-require": "warn",
     "import/prefer-default-export": "off",
-    "no-use-before-define": "off",
+    "no-use-before-define": "warn",
     "promise/param-names": "error",
     "promise/always-return": "error",
     "promise/catch-or-return": "error",
     "promise/no-native": "off",
-    "jsx-a11y/label-has-associated-control": "off",
     "class-methods-use-this": "off",
     "no-duplicate-imports": "error",
     "no-param-reassign": "error",
@@ -32,6 +34,7 @@
     "no-console": "warn",
     "no-mixed-operators": "off",
     "prefer-template": "off",
+    "no-unused-vars": "warn",
     "no-trailing-spaces": "warn",
     "padded-blocks": "warn",
     "no-undef": "warn",
@@ -43,21 +46,26 @@
     "prefer-const": "warn",
     "object-curly-spacing": "warn",
     "spaced-comment": "warn",
-    "quotes": ["error", "single"],
+    "quotes": [
+      "error",
+      "single"
+    ],
     "import/imports-first": "warn",
     "no-multi-spaces": "warn",
     "no-multiple-empty-lines": "warn",
+    "global-require": "off",
     "mocha/no-sibling-hooks": "warn",
+    "mocha/max-top-level-suites": "off",
     "mocha/no-setup-in-describe": "off",
-    "mocha/no-exclusive-tests": "error",
-    "mocha/no-hooks-for-single-case": "off"
+    "mocha/no-hooks-for-single-case": "off",
+    "mocha/no-top-level-hooks": "off"
   },
-  "plugins": ["import", "promise", "mocha"],
+  "plugins": [
+    "import",
+    "promise",
+    "mocha"
+  ],
   "globals": {
-    "artifacts": "readonly",
-    "assert": "readonly",
-    "expect": "readonly",
-    "web3": "readonly",
-    "contract": "readonly"
+    "artifacts": false
   }
 }

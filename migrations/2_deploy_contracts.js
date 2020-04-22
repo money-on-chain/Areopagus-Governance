@@ -4,6 +4,7 @@ const { scripts, ConfigVariablesInitializer } = require('zos');
 const allConfigs = require('./config');
 
 const UpgradeDelegator = artifacts.require('UpgradeDelegator');
+const BlockableUpgradeDelegator = artifacts.require('BlockableUpgradeDelegator');
 const ProxyAdmin = artifacts.require('ProxyAdmin');
 
 const { add, push, create, setAdmin } = scripts;
@@ -42,16 +43,27 @@ async function deploy(options, owner, config) {
 
   console.log('Deploying upgradeDelegator and admin');
   const admin = await ProxyAdmin.new();
+  let upgradeDelegator;
 
-  const upgradeDelegator = await UpgradeDelegator.new();
-  await upgradeDelegator.initialize(governor.address, admin.address);
+  // check if the script if BlockableUpgradeDelegator should be used
+  if (config.unblockUpgradesAt) {
+    upgradeDelegator = await BlockableUpgradeDelegator.new();
+    await upgradeDelegator.initialize(
+      owner,
+      governor.address,
+      admin.address,
+      config.unblockUpgradesAt
+    );
+  } else {
+    upgradeDelegator = await UpgradeDelegator.new();
+    await upgradeDelegator.initialize(governor.address, admin.address);
+  }
 
   console.log('Transfering ownership');
   await admin.transferOwnership(upgradeDelegator.address);
   console.log('Setting admins');
   await setAdmin({ contractAlias: 'Governor', newAdmin: admin.address, ...options });
   await setAdmin({ contractAlias: 'Stopper', newAdmin: admin.address, ...options });
-
   console.log(`-----ADDRESSES IN ${options.network}------------`);
   console.log(`Deployed governor in ${governor.address}`);
   console.log(`Deployed stopper in ${stopper.address}`);

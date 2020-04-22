@@ -1,11 +1,14 @@
 {
   "uatTestnet": {
-    "unblockAt": 10
+    "unblockAt": 10,
+    "unblockUpgradesAt": 20
   },
   "development": {
-    "unblockAt": 10
+    "unblockAt": 10,
+    "unblockUpgradesAt": 20
   },
   "coverage": {
-    "unblockAt": 10
+    "unblockAt": 10,
+    "unblockUpgradesAt": 20
   }
 }
