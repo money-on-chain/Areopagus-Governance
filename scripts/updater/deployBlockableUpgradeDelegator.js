@@ -8,12 +8,12 @@ const { add, push, create, setAdmin } = scripts;
 
 /**
  * Script for deploying a new BlockableUpgradeDelegator. 
- * unblockUpgradesTimeDelta is in miliseconds.
+ * unblockUpgradesTimeDelta is in seconds.
  */
 const input = {
-  network: 'development',
-  governorAddress: '0xd3A030CC2197E807a89E6fDcd1e7ea0B6C6B5Fd6',
-  unblockUpgradesTimeDelta: 1000 * 60 * 60 * 24 * 2
+  network: 'rskTestnet',
+  governorAddress: '0xf0a70a883E52dDc94F755cB03D0917E305d5d258',
+  unblockUpgradesTimeDelta: 60 * 60 * 24 * 14
 };
 
 const execute = async () => {
@@ -25,9 +25,11 @@ const execute = async () => {
     data: ProxyAdmin.bytecode,
     arguments: []
   })
-    .send({ from: owner, 
-            gas: truffleConfig.networks[input.network].gas, 
-            gasPrice: truffleConfig.networks[input.network].gasPrice })
+    .send({
+      from: owner,
+      gas: truffleConfig.networks[input.network].gas,
+      gasPrice: truffleConfig.networks[input.network].gasPrice
+    })
     .on('transactionHash', hash => console.log('TxHash:', hash))
     .on('confirmation', confirmationNumber => console.log('Tx confirmation:', confirmationNumber))
     .on('receipt', receipt => {
@@ -48,9 +50,11 @@ const deployUpgradeDelegator = async (web3, owner, receipt) => {
     data: BlockableUpgradeDelegator.bytecode,
     arguments: []
   })
-    .send({ from: owner, 
-            gas: truffleConfig.networks[input.network].gas, 
-            gasPrice: truffleConfig.networks[input.network].gasPrice })
+    .send({
+      from: owner,
+      gas: truffleConfig.networks[input.network].gas,
+      gasPrice: truffleConfig.networks[input.network].gasPrice
+    })
     .on('transactionHash', hash => console.log('TxHash:', hash))
     .on('confirmation', confirmationNumber => console.log('Tx confirmation:', confirmationNumber))
     .on('receipt', receipt => {
@@ -68,28 +72,32 @@ const initializeUpgradeDelegator = async (owner, web3, proxyAdminAddress, receip
   console.log('Delegator Initialize');
   const unblockUpgradesAt = await currentTimestamp(web3) + input.unblockUpgradesTimeDelta;
   await delegator.methods.initialize(owner, input.governorAddress, proxyAdminAddress, unblockUpgradesAt)
-  .send({ from: owner, 
-    gas: truffleConfig.networks[input.network].gas, 
-    gasPrice: truffleConfig.networks[input.network].gasPrice })
-  .on('transactionHash', hash => console.log('TxHash:', hash))
-  .on('confirmation', confirmationNumber => console.log('Tx confirmation:', confirmationNumber))
-  .on('receipt', receipt => {
-    console.log('Tx receipt:', receipt),
-    transferingOwnership(owner, delegator, admin, receipt)
-  })
-  .on('error', console.error);
+    .send({
+      from: owner,
+      gas: truffleConfig.networks[input.network].gas,
+      gasPrice: truffleConfig.networks[input.network].gasPrice
+    })
+    .on('transactionHash', hash => console.log('TxHash:', hash))
+    .on('confirmation', confirmationNumber => console.log('Tx confirmation:', confirmationNumber))
+    .on('receipt', receipt => {
+      console.log('Tx receipt:', receipt),
+        transferingOwnership(owner, delegator, admin, receipt)
+    })
+    .on('error', console.error);
 }
 
 const transferingOwnership = async (owner, delegator, admin, receipt) => {
   console.log('Transfering Ownership');
   await admin.methods.transferOwnership(delegator.address)
-  .send({ from: owner, 
-    gas: truffleConfig.networks[input.network].gas, 
-    gasPrice: truffleConfig.networks[input.network].gasPrice })
-  .on('transactionHash', hash => console.log('TxHash:', hash))
-  .on('confirmation', confirmationNumber => console.log('Tx confirmation:', confirmationNumber))
-  .on('receipt', receipt => console.log('Tx receipt:', receipt))
-  .on('error', console.error);
+    .send({
+      from: owner,
+      gas: truffleConfig.networks[input.network].gas,
+      gasPrice: truffleConfig.networks[input.network].gasPrice
+    })
+    .on('transactionHash', hash => console.log('TxHash:', hash))
+    .on('confirmation', confirmationNumber => console.log('Tx confirmation:', confirmationNumber))
+    .on('receipt', receipt => console.log('Tx receipt:', receipt))
+    .on('error', console.error);
 }
 
 execute()
