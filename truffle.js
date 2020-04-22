@@ -33,7 +33,13 @@ module.exports = {
       port: 8555,
       gas: 0xfffffffffff,
       gasPrice: 0x01
-    }
+    },
+    rskTestnet: {
+      host: 'https://public-node.testnet.rsk.co',
+      provider: new HDWalletProvider(mnemonic, 'https://public-node.testnet.rsk.co'),
+      network_id: '*',
+      gasPrice: 60000000
+    },
   },
   mocha: {
     useColors: true,
