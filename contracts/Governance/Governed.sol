@@ -1,4 +1,4 @@
-pragma solidity 0.5.8;
+pragma solidity ^0.5.8;
 
 import "./IGovernor.sol";
 import "zos-lib/contracts/Initializable.sol";
