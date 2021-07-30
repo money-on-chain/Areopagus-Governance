@@ -1,4 +1,4 @@
-pragma solidity 0.5.8;
+pragma solidity ^0.5.8;
 
 import "./Governor.sol";
 import "../Blockability/Blockable.sol";
