@@ -8,6 +8,7 @@ import "../Governance/Governed.sol";
 contract MockGoverned is Governed {
 
   address public protectedParam;
+  uint public protectedParamUint;
 
 
   constructor(address _protectedParam) public {
@@ -17,5 +18,8 @@ contract MockGoverned is Governed {
 
   function setProtectedParam(address newProtectedParam) public onlyAuthorizedChanger {
     protectedParam = newProtectedParam;
+  }
+  function setProtectedParamUint(uint newProtectedParamUint) public onlyAuthorizedChanger {
+    protectedParamUint = newProtectedParamUint;
   }
 }
