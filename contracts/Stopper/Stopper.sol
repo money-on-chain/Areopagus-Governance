@@ -1,6 +1,6 @@
-pragma solidity ^0.5.8;
+pragma solidity =0.8.10;
 
-import "openzeppelin-eth/contracts/ownership/Ownable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "./Stoppable.sol";
 
 /**

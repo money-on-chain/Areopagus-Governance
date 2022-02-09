@@ -1,10 +1,10 @@
-pragma solidity ^0.5.8;
+pragma solidity =0.8.10;
 
-import "openzeppelin-eth/contracts/ownership/Ownable.sol";
-import "openzeppelin-eth/contracts/utils/ReentrancyGuard.sol";
-
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./ChangeContract.sol";
 import "./IGovernor.sol";
+
 
 /**
   @title Governor
@@ -19,7 +19,7 @@ contract Governor is ReentrancyGuard, Ownable, IGovernor {
     @notice Function to be called to make the changes in changeContract
     @param changeContract Address of the contract that will execute the changes
    */
-  function executeChange(ChangeContract changeContract) external {
+  function executeChange(ChangeContract changeContract) external virtual {
     _executeChange(changeContract);
   }
 
@@ -32,8 +32,6 @@ contract Governor is ReentrancyGuard, Ownable, IGovernor {
   function isAuthorizedChanger(address _changer) external view returns (bool) {
     return _isAuthorizedChanger(_changer);
   }
-
-
 
   /**
     @notice Function to be called to make the changes in changeContract
@@ -58,7 +56,7 @@ contract Governor is ReentrancyGuard, Ownable, IGovernor {
     @notice Authorize the changeContract address to make changes
     @param changeContract Address of the contract that will be authorized
    */
-  function enableChangeContract(ChangeContract changeContract) internal {
+  function enableChangeContract(ChangeContract changeContract) internal virtual {
     currentChangeContract = address(changeContract);
   }
 

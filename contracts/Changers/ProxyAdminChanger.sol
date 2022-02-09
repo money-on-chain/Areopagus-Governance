@@ -1,6 +1,6 @@
-pragma solidity ^0.5.8;
+pragma solidity =0.8.10;
 
-import "zos-lib/contracts/upgradeability/ProxyAdmin.sol";
+ 
 import "../Governance/ChangeContract.sol";
 import "../Upgradeability/UpgradeDelegator.sol";
 
@@ -9,7 +9,7 @@ import "../Upgradeability/UpgradeDelegator.sol";
   @notice This contract allows updating the ProxyAdmin of a proxy contract.
  */
 contract ProxyAdminChanger is ChangeContract {
-  AdminUpgradeabilityProxy public proxy;
+  TransparentUpgradeableProxy public proxy;
   UpgradeDelegator public upgradeDelegator;
   address public newProxyAdmin;
 
@@ -19,7 +19,7 @@ contract ProxyAdminChanger is ChangeContract {
     @param _upgradeDelegator Address of the old upgradeDelegator in charge of that proxy.
     @param _newProxyAdmin Address of the new AdminProxy with new upgradeDelegator.
   */
-  constructor(AdminUpgradeabilityProxy _proxy, UpgradeDelegator _upgradeDelegator, address _newProxyAdmin) public {
+  constructor(TransparentUpgradeableProxy _proxy, UpgradeDelegator _upgradeDelegator, address _newProxyAdmin) public {
     proxy = _proxy;
     upgradeDelegator = _upgradeDelegator;
     newProxyAdmin = _newProxyAdmin;

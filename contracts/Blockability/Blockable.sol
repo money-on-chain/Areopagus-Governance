@@ -1,6 +1,6 @@
-pragma solidity ^0.5.8;
+pragma solidity =0.8.10;
 
-import "zos-lib/contracts/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 /**
   @title Blockable
@@ -8,7 +8,7 @@ import "zos-lib/contracts/Initializable.sol";
   is blocked until a certain date. That date cannot be changed while the contract is blocked so
   it is guaranteed that you will be blocked until that date
   */
-contract Blockable is Initializable {
+abstract contract Blockable is Initializable {
 
   string constant private NOT_AUTHORIZED_TO_BLOCK = "not_authorized_to_block";
   string constant private BLOCKED = "blocked";
@@ -29,7 +29,7 @@ contract Blockable is Initializable {
    */
   function isBlocked() public view returns (bool) {
     // solium-disable-next-line security/no-block-members
-    return now < unblockDate;
+    return block.timestamp < unblockDate;
   }
 
   /**
@@ -49,7 +49,7 @@ contract Blockable is Initializable {
     @dev Should be defined by subclasses
     @param who Address that is being asked for
    */
-  function isAuthorizedToBlock(address who) public view returns(bool);
+  function isAuthorizedToBlock(address who) public view virtual returns(bool);
   /**
     @notice Blocks the governor until unblockAt
     @dev The new threshold should be big enough to block the governor after the tx and the contract should not be blocked, but that is enforced
@@ -60,7 +60,7 @@ contract Blockable is Initializable {
   function blockUntil(uint256 newUnblockDate) public notBlocked {
     require(isAuthorizedToBlock(msg.sender), NOT_AUTHORIZED_TO_BLOCK);
     // solium-disable-next-line security/no-block-members
-    require(now < newUnblockDate, THRESHOLD_TOO_LOW);
+    require(block.timestamp < newUnblockDate, THRESHOLD_TOO_LOW);
     unblockDate = newUnblockDate;
   }
 

@@ -1,6 +1,7 @@
-pragma solidity ^0.5.8;
+pragma solidity =0.8.10;
 
-import "zos-lib/contracts/upgradeability/AdminUpgradeabilityProxy.sol";
+//import "zos-lib/contracts/upgradeability/AdminUpgradeabilityProxy.sol";
+import "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
 import "../Governance/ChangeContract.sol";
 import "../Upgradeability/UpgradeDelegator.sol";
 
@@ -13,7 +14,7 @@ import "../Upgradeability/UpgradeDelegator.sol";
  */
 contract UpgraderTemplate is ChangeContract {
 
-  AdminUpgradeabilityProxy public proxy;
+  TransparentUpgradeableProxy public proxy;
   UpgradeDelegator public upgradeDelegator;
   address public newImplementation;
 
@@ -23,7 +24,7 @@ contract UpgraderTemplate is ChangeContract {
     @param _upgradeDelegator Address of the upgradeDelegator in charge of that proxy
     @param _newImplementation Address of the contract the proxy will delegate to
   */
-  constructor(AdminUpgradeabilityProxy _proxy, UpgradeDelegator _upgradeDelegator, address _newImplementation) public {
+  constructor(TransparentUpgradeableProxy _proxy, UpgradeDelegator _upgradeDelegator, address _newImplementation) public {
     proxy = _proxy;
     upgradeDelegator = _upgradeDelegator;
     newImplementation = _newImplementation;
@@ -59,6 +60,6 @@ contract UpgraderTemplate is ChangeContract {
     @notice Intended to do the final tweaks after the upgrade, for example initialize the contract
     @dev This function can be overriden by child changers to upgrade contracts that require some changes after the upgrade
    */
-  function _afterUpgrade() internal {
+  function _afterUpgrade() internal virtual{
   }
 }

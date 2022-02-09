@@ -1,7 +1,7 @@
-pragma solidity ^0.5.8;
+pragma solidity =0.8.10;
 
-import "zos-lib/contracts/upgradeability/AdminUpgradeabilityProxy.sol";
-import "zos-lib/contracts/upgradeability/ProxyAdmin.sol";
+import "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
+import "@openzeppelin/contracts/proxy/transparent/ProxyAdmin.sol";
 import "../Blockability/Blockable.sol";
 import "./UpgradeDelegator.sol";
 
@@ -39,8 +39,9 @@ contract BlockableUpgradeDelegator is UpgradeDelegator, Blockable {
   * @param proxy Proxy to change admin.
   * @param newAdmin Address to transfer proxy administration to.
   */
-  function changeProxyAdmin(AdminUpgradeabilityProxy proxy, address newAdmin)
+  function changeProxyAdmin(TransparentUpgradeableProxy proxy, address newAdmin)
       public
+      override
       notBlocked
   {
     UpgradeDelegator.changeProxyAdmin(proxy, newAdmin);
@@ -51,8 +52,9 @@ contract BlockableUpgradeDelegator is UpgradeDelegator, Blockable {
   * @param proxy Proxy to be upgraded.
   * @param implementation the address of the Implementation.
   */
-  function upgrade(AdminUpgradeabilityProxy proxy, address implementation)
+  function upgrade(TransparentUpgradeableProxy proxy, address implementation)
       public
+      override
       notBlocked
   {
     UpgradeDelegator.upgrade(proxy, implementation);
@@ -68,10 +70,10 @@ contract BlockableUpgradeDelegator is UpgradeDelegator, Blockable {
   * https://solidity.readthedocs.io/en/v0.4.24/abi-spec.html#function-selector-and-argument-encoding.
   */
   function upgradeAndCall(
-    AdminUpgradeabilityProxy proxy,
+    TransparentUpgradeableProxy proxy,
     address implementation,
     bytes memory data
-  ) public payable notBlocked {
+  ) public override payable notBlocked {
     UpgradeDelegator.upgradeAndCall(proxy, implementation, data);
   }
 
@@ -79,7 +81,7 @@ contract BlockableUpgradeDelegator is UpgradeDelegator, Blockable {
   @notice Defines which addresses are authorized to Block and which are not; in this case, the changes that come through the governor
   @param who Address that is being asked for
   */
-  function isAuthorizedToBlock(address who) public view returns (bool) {
+  function isAuthorizedToBlock(address who) public override view returns (bool) {
     return governor.isAuthorizedChanger(who);
   }
 }

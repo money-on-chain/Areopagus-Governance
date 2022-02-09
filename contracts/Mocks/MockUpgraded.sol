@@ -1,4 +1,4 @@
-pragma solidity ^0.5.8;
+pragma solidity =0.8.10;
 
 // This contract is not intended to be used in a production system
 // It was designed to be using in a testing environment only
@@ -20,7 +20,7 @@ contract MockUpgraded is MockUpgradeable {
     thirdVariable = 4;
   }
 
-  function sumOfVars() public view returns (uint256) {
+  function sumOfVars() public view override returns (uint256) {
     return super.sumOfVars() + thirdVariable;
   }
 }

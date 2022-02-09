@@ -1,7 +1,7 @@
-pragma solidity ^0.5.8;
+pragma solidity =0.8.10;
 
-import "zos-lib/contracts/upgradeability/AdminUpgradeabilityProxy.sol";
-import "zos-lib/contracts/upgradeability/ProxyAdmin.sol";
+import "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
+import "@openzeppelin/contracts/proxy/transparent/ProxyAdmin.sol";
 import "../Governance/Governed.sol";
 
 /**
@@ -31,7 +31,7 @@ contract UpgradeDelegator is Governed {
    * This is needed because only the proxy admin can query it.
    * @return The address of the current implementation of the proxy.
    */
-  function getProxyImplementation(AdminUpgradeabilityProxy proxy) public view returns (address) {
+  function getProxyImplementation(TransparentUpgradeableProxy proxy) public view returns (address) {
     return proxyAdmin.getProxyImplementation(proxy);
   }
 
@@ -39,7 +39,7 @@ contract UpgradeDelegator is Governed {
    * @dev Returns the admin of a proxy. Only the admin can query it.
    * @return The address of the current admin of the proxy.
    */
-  function getProxyAdmin(AdminUpgradeabilityProxy proxy) public view returns (address) {
+  function getProxyAdmin(TransparentUpgradeableProxy proxy) public view returns (address) {
     return proxyAdmin.getProxyAdmin(proxy);
   }
 
@@ -48,7 +48,7 @@ contract UpgradeDelegator is Governed {
    * @param proxy Proxy to change admin.
    * @param newAdmin Address to transfer proxy administration to.
    */
-  function changeProxyAdmin(AdminUpgradeabilityProxy proxy, address newAdmin) public onlyAuthorizedChanger {
+  function changeProxyAdmin(TransparentUpgradeableProxy proxy, address newAdmin) public virtual onlyAuthorizedChanger {
     proxyAdmin.changeProxyAdmin(proxy, newAdmin);
   }
 
@@ -57,7 +57,7 @@ contract UpgradeDelegator is Governed {
    * @param proxy Proxy to be upgraded.
    * @param implementation the address of the Implementation.
    */
-  function upgrade(AdminUpgradeabilityProxy proxy, address implementation) public onlyAuthorizedChanger {
+  function upgrade(TransparentUpgradeableProxy proxy, address implementation) public virtual onlyAuthorizedChanger {
     proxyAdmin.upgrade(proxy, implementation);
   }
 
@@ -70,7 +70,7 @@ contract UpgradeDelegator is Governed {
    * It should include the signature and the parameters of the function to be called, as described in
    * https://solidity.readthedocs.io/en/v0.4.24/abi-spec.html#function-selector-and-argument-encoding.
    */
-  function upgradeAndCall(AdminUpgradeabilityProxy proxy, address implementation, bytes memory data) public payable onlyAuthorizedChanger {
-    proxyAdmin.upgradeAndCall.value(msg.value)(proxy, implementation, data);
+  function upgradeAndCall(TransparentUpgradeableProxy proxy, address implementation, bytes memory data) public virtual payable onlyAuthorizedChanger {
+    proxyAdmin.upgradeAndCall{value:msg.value}(proxy, implementation, data);
   }
 }

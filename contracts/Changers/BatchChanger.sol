@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.5.0;
-// solium-disable no-experimental
-pragma experimental ABIEncoderV2;
+pragma solidity =0.8.10;
 
-import "@openzeppelin/contracts/ownership/Ownable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 // Adaptation of https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/governance/BatchChanger.sol
 /**

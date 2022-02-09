@@ -1,9 +1,9 @@
-pragma solidity ^0.5.8;
+pragma solidity =0.8.10;
 
 // This contract is not intended to be used in a production system
 // It was designed to be using in a testing environment only
 
-import "zos-lib/contracts/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 contract MockUpgradeable is Initializable {
   uint256 public firstVariable;
@@ -14,7 +14,7 @@ contract MockUpgradeable is Initializable {
     secondVariable = 5;
   }
 
-  function sumOfVars() public view returns (uint256) {
+  function sumOfVars() public view virtual returns (uint256) {
     return firstVariable + secondVariable;
   }
 }

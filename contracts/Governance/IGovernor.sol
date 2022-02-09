@@ -1,4 +1,4 @@
-pragma solidity ^0.5.8;
+pragma solidity =0.8.10;
 
 import "./ChangeContract.sol";
 

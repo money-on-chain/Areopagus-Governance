@@ -1,4 +1,4 @@
-pragma solidity ^0.5.8;
+pragma solidity =0.8.10;
 
 import "./Governor.sol";
 import "../Blockability/Blockable.sol";
@@ -14,7 +14,7 @@ contract BlockableGovernor is Governor, Blockable {
     @notice Function to be called to make the changes in changeContract
     @param changeContract Address of the contract that will execute the changes
    */
-  function executeChange(ChangeContract changeContract) external notBlocked {
+  function executeChange(ChangeContract changeContract) external override notBlocked {
     super._executeChange(changeContract);
   }
 
@@ -27,7 +27,7 @@ contract BlockableGovernor is Governor, Blockable {
       again
    */
   function initialize(address _owner, uint256 _firstUnblockDate) public initializer {
-    super.initialize(_owner);
+    //super.initialize(24);
     Blockable.initialize(_firstUnblockDate);
   }
 
@@ -36,7 +36,7 @@ contract BlockableGovernor is Governor, Blockable {
     @notice Defines which addresses are authorized to Block and which are not; in this case, the changes that come through the governor
     @param who Address that is being asked for
    */
-  function isAuthorizedToBlock(address who) public view returns(bool) {
+  function isAuthorizedToBlock(address who) public view override returns(bool) {
     return _isAuthorizedChanger(who);
   }
 

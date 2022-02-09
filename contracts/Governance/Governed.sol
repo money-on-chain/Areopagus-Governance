@@ -1,7 +1,7 @@
-pragma solidity ^0.5.8;
+pragma solidity =0.8.10;
 
 import "./IGovernor.sol";
-import "zos-lib/contracts/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 /**
   @title Governed

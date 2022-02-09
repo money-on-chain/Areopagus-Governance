@@ -1,4 +1,4 @@
-pragma solidity ^0.5.8;
+pragma solidity =0.8.10;
 
 // This contract is not intended to be used in a production system
 // It was designed to be using in a testing environment only
@@ -12,7 +12,7 @@ contract MockUpgradedGovernor is Governor {
     initialized2 = true;
   }
 
-  function enableChangeContract(ChangeContract changeContract) internal {
+  function enableChangeContract(ChangeContract changeContract) internal override {
     require(initialized2, "Not initialized");
     super.enableChangeContract(changeContract);
   }
