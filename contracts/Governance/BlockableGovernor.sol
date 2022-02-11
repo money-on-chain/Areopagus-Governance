@@ -27,7 +27,7 @@ contract BlockableGovernor is Governor, Blockable {
       again
    */
   function initialize(address _owner, uint256 _firstUnblockDate) public initializer {
-    //super.initialize(24);
+    super.initialize(_firstUnblockDate);
     Blockable.initialize(_firstUnblockDate);
   }
 
