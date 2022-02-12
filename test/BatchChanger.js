@@ -78,12 +78,7 @@ contract('BatchChanger', function([owner, anAddress, anotherAddress]) {
         batchChangerContract.schedule(targets, datas, { from: anAddress }),
         'Ownable: caller is not the owner'
       );
-
-      // await expectRevert.unspecified(
-      //   governor.executeChange(batchChangerContract.address, {
-      //     from: anAddress
-      //   })
-      // );
+      
     });
   });
 });
