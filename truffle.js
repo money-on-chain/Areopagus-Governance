@@ -8,7 +8,7 @@ module.exports = {
   // for more about customizing your Truffle configuration!
   compilers: {
     solc: {
-      version: '0.5.17',
+      version: '0.8.10',
       evmVersion: 'byzantium',
       settings: {
         optimizer: {
