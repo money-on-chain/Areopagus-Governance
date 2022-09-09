@@ -51,6 +51,14 @@ module.exports = {
       gasPrice: 66000000,
       skipDryRun: true,
       confirmations: 1
+    },
+    bscTestnet: {
+      host: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+      provider: new HDWalletProvider(mnemonic, 'https://data-seed-prebsc-1-s1.binance.org:8545/'),
+      network_id: '*',
+      gas: 2000000,
+      skipDryRun: true,
+      confirmations: 1
     }
   },
   mocha: {

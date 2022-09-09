@@ -18,5 +18,9 @@
   "rskMainnet": {
     "unblockAt": 10,
     "unblockUpgradesAt": 20
+  },
+  "bscTestnet": {
+    "unblockAt": 10,
+    "unblockUpgradesAt": 20
   }
 }
