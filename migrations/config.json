@@ -22,5 +22,9 @@
   "bscTestnet": {
     "unblockAt": 10,
     "unblockUpgradesAt": 20
+  },
+  "polygonMumbai": {
+    "unblockAt": 10,
+    "unblockUpgradesAt": 20
   }
 }
