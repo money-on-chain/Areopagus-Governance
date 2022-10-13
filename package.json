@@ -27,6 +27,9 @@
     "deploy-reset-uat-testnet": "npm run remove-zos-dev; rm -r build/contracts; truffle migrate --network uatTestnet --reset",
     "deploy-reset-qa-standalone": "npm run remove-zos-dev; rm -r build/contracts; truffle migrate --network qaStandalone --reset",
     "deploy-reset-qa-testnet": "npm run remove-zos-dev; rm -r build/contracts; truffle migrate --network qaTestnet --reset",
+    "deploy-reset-rsk-testnet": "npm run remove-zos-dev; rm -r build/contracts; truffle migrate --network rskTestnet --reset",
+    "deploy-reset-rsk-mainnet": "npm run remove-zos-dev; rm -r build/contracts; truffle migrate --network rskMainnet --reset",
+    "deploy-reset-bsc-testnet": "npm run remove-zos-dev; rm -r build/contracts; truffle migrate --network bscTestnet --reset",
     "remove-zos-dev": "rm zos.dev* || echo 'Nothing to remove'"
   },
   "repository": {

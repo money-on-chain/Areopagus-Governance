@@ -33,6 +33,32 @@ module.exports = {
       port: 8555,
       gas: 0xfffffffffff,
       gasPrice: 0x01
+    },
+    rskTestnet: {
+      host: 'https://public-node.testnet.rsk.co',
+      provider: new HDWalletProvider(mnemonic, 'https://public-node.testnet.rsk.co'),
+      network_id: '*',
+      gas: 6700000,
+      gasPrice: 69000000,
+      skipDryRun: true,
+      confirmations: 1
+    },
+    rskMainnet: {
+      host: 'https://public-node.rsk.co',
+      provider: new HDWalletProvider(mnemonic, 'https://public-node.rsk.co'),
+      network_id: '*',
+      gas: 5600000,
+      gasPrice: 66000000,
+      skipDryRun: true,
+      confirmations: 1
+    },
+    bscTestnet: {
+      host: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+      provider: new HDWalletProvider(mnemonic, 'https://data-seed-prebsc-1-s1.binance.org:8545/'),
+      network_id: '*',
+      gas: 2000000,
+      skipDryRun: true,
+      confirmations: 1
     }
   },
   mocha: {
