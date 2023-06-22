@@ -46,9 +46,19 @@ This combination of Zeppelin OS transparent proxy and the need to upgrade as muc
 
 ## Install dependencies
 
-First you should use the right node version, if you are using nvm just run `nvm use`. Otherwise verify that you are using node 8.12.
+First you should use the right node version, if you are using nvm just run: 
 
-Then you should install the dependencies with `npm install`
+`nvm use`
+
+`git config --global url.“https://“.insteadOf git://`
+
+`sudo ln -s -f /usr/local/bin/python3.8 /usr/local/bin/python`
+
+`apt-get install g++`
+
+Then you should install the dependencies with:
+
+`npm install`
 
 ## Run Tests
 
