@@ -26,7 +26,24 @@ contract Stopper is Ownable {
     pausedContract.unpause();
   }
 
+  /**
+    @notice set new gas price limit to target contract
+    @param gasPriceLimitedContract Contract to be updated with new gas price limit
+    @param maxGasPrice_ new gas price limit
+   */
+  function setMaxGasPrice(GasPriceLimited gasPriceLimitedContract, uint256 maxGasPrice_) external onlyOwner {
+    gasPriceLimitedContract.setMaxGasPrice(maxGasPrice_);
+  }
+
   // Leave a gap betweeen inherited contracts variables in order to be
   // able to add more variables in them later
   uint256[50] private upgradeGap;
+}
+
+interface GasPriceLimited {
+    /**
+   * @notice set new gas price limit
+   * @param maxGasPrice_ new gas price limit
+   */
+  function setMaxGasPrice(uint256 maxGasPrice_) external;
 }
