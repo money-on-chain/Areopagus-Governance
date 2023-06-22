@@ -1,8 +1,8 @@
 {
   "name": "areopagus",
-  "version": "0.3.4",
+  "version": "0.3.7",
   "private": true,
-  "homepage": "https://gitlab.com/atixlabs/moc---gobernanza",
+  "homepage": "https://github.com/money-on-chain/Areopagus-Governance/",
   "description": "Money on Chain Governance Smart Contract System",
   "main": "truffle-config.js",
   "directories": {
@@ -35,7 +35,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/atixlabs/moc---gobernanza"
+    "url": "https://github.com/money-on-chain/Areopagus-Governance.git"
   },
   "keywords": [],
   "author": "Atix",

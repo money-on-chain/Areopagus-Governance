@@ -38,10 +38,13 @@ module.exports = {
       host: 'https://public-node.testnet.rsk.co',
       provider: new HDWalletProvider(mnemonic, 'https://public-node.testnet.rsk.co'),
       network_id: '*',
-      gas: 6700000,
+      gas: 6300000,
       gasPrice: 69000000,
-      skipDryRun: true,
-      confirmations: 1
+      skipDryRun: false,
+      confirmations: 1,
+      disableConfirmationListener: true,
+      networkCheckTimeout: 100000,
+      timeoutBlocks: 200,
     },
     rskMainnet: {
       host: 'https://public-node.rsk.co',
