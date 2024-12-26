@@ -51,6 +51,15 @@ module.exports = {
       gasPrice: 66000000,
       skipDryRun: true,
       confirmations: 1
+    },
+    ethTestnet: {
+      host: 'https://eth-sepolia.public.blastapi.io',
+      provider: new HDWalletProvider(mnemonic, 'https://eth-sepolia.public.blastapi.io'),
+      network_id: '11155111',
+      gas: 1000000,
+      gasPrice: 13500000000,
+      skipDryRun: true,
+      confirmations: 1
     }
   },
   mocha: {
